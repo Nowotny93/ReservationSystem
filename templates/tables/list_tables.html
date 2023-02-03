@@ -1,0 +1,70 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <h1 class='text-center' style="font-style: italic;padding-top: 5px"><b>-- All tables --</b></h1>
+    <form method="post" class="furniture-form" action="{% url 'add table' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <center><button class="btn btn-primary mt-2" type="submit">Add Table</button></center>
+    </form>
+    <hr>
+        <div class="row"  style="padding-top: 10px;padding-left: 40px">
+            {% for table in tables %}
+                <div class="col-lg-4" style="padding-top: 30px">
+                    <div class="card" style="border-radius: 40px;width: 290px;">
+                        {% if table.type == 'Big' %}
+                            <div style="font-family: Monaco; font-style: italic;padding-top: 5px">
+                                <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                            </div>
+
+                            <img src="https://5.imimg.com/data5/OJ/OG/ND/SELLER-53513676/dining-room-table-500x500.jpg" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                            {% if table.makeorder_set.all %}
+                                <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                            {% else %}
+                                <h5 style="text-align: center; background: chocolate">FREE</h5>
+                            {% endif %}
+                            <div style="text-align: center;padding-bottom: 10px">
+                                <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                            </div>
+                        {% elif table.type == 'Medium' %}
+                            <div style="font-family: Monaco; font-style: italic;padding-top: 5px">
+                                <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                            </div>
+
+                            <img src="https://www.decorhubng.com/wp-content/uploads/2018/05/Espresso-Leather-Brown-4-Person-Table-and-Chairs-Brown-Dining-Dinette.jpg" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                            {% if table.makeorder_set.all %}
+                                <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                            {% else %}
+                                <h5 style="text-align: center; background: chocolate">FREE</h5>
+                            {% endif %}
+                            <div style="text-align: center;padding-bottom: 10px">
+                                <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                            </div>
+                        {% elif table.type == 'Small' %}
+                            <div style="font-family: Monaco; font-style: italic;padding-top: 5px">
+                                <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                            </div>
+
+                            <img src="https://i5.walmartimages.com/asr/cd57a361-89eb-4455-a40a-3788fb3effd8.bea507cfe007bed07a856f0b603d7d7c.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                            {% if table.makeorder_set.all %}
+                                <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                            {% else %}
+                                <h5 style="text-align: center; background: chocolate">FREE</h5>
+                            {% endif %}
+                            <div style="text-align: center;padding-bottom: 10px">
+                                <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

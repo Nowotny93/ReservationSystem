@@ -1,0 +1,107 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="text-center" style="font-style: italic">
+        <h1><b>Hello, {{ request.user.username }}!</b></h1>
+        <h5>This is your profile</h5>
+        {% if profile.profile_image %}
+            <img class="rounded-circle mb-3" src="{{ profile.profile_image.url }}" alt="" width="140"
+                 height="140">
+        {% else %}
+            <img class="rounded-circle mb-3" src="https://www.weact.org/wp-content/uploads/2016/10/Blank-profile.png" alt="" width="140"
+                 height="140">
+            <p>Upload your photo!</p>
+        {% endif %}
+        <div class="w-50 m-auto">
+            <form action="{% url 'profile details' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn btn-success" style="font-style: italic">Update</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div style="padding-top: 10px">
+        {% if tables %}
+            <h2 class="text-center" style="font-style: italic"><b>These are the tables you added</b></h2>
+            <div class="row" style="padding-top: 10px;">
+                    {% for table in tables %}
+                        <div class="col-lg-4" style="padding-top: 30px">
+                            <div class="card" style="border-radius: 40px;width: 290px;">
+                                {% if table.type == 'Big' %}
+                                    <div style="font-style: italic;padding-top: 5px">
+                                        <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                        <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                                    </div>
+
+                                    <img src="https://5.imimg.com/data5/OJ/OG/ND/SELLER-53513676/dining-room-table-500x500.jpg" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                                    {% if table.makeorder_set.all %}
+                                        <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                                    {% else %}
+                                        <h5 style="text-align: center; background: chocolate">FREE</h5>
+                                    {% endif %}
+                                    <div style="text-align: center;padding-bottom: 10px">
+                                        <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                                    </div>
+                                {% elif table.type == 'Medium' %}
+                                    <div style="font-family: Monaco; font-style: italic;padding-top: 5px">
+                                        <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                        <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                                    </div>
+
+                                    <img src="https://www.decorhubng.com/wp-content/uploads/2018/05/Espresso-Leather-Brown-4-Person-Table-and-Chairs-Brown-Dining-Dinette.jpg" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                                    {% if table.makeorder_set.all %}
+                                        <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                                    {% else %}
+                                        <h5 style="text-align: center; background: chocolate">FREE</h5>
+                                    {% endif %}
+                                    <div style="text-align: center;padding-bottom: 10px">
+                                        <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                                    </div>
+                                {% elif table.type == 'Small' %}
+                                    <div style="font-style: italic;padding-top: 5px">
+                                        <h5 class="" style="text-align: center;padding-top: 5px"><b>Name: {{ table.name }}</b></h5>
+                                        <p class="card-title" style="text-align: center">Type: {{ table.type }}, {{ table.description }}</p>
+                                    </div>
+
+                                    <img src="https://i5.walmartimages.com/asr/cd57a361-89eb-4455-a40a-3788fb3effd8.bea507cfe007bed07a856f0b603d7d7c.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" style="text-align: center;width: 50%;display: block;margin-left: auto;margin-right: auto">
+
+                                    {% if table.makeorder_set.all %}
+                                        <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                                    {% else %}
+                                        <h5 style="text-align: center; background: chocolate">FREE</h5>
+                                    {% endif %}
+                                    <div style="text-align: center;padding-bottom: 10px">
+                                        <a href="{% url 'delete table' table.id %}" class="btn btn-danger">Delete</a>
+                                        <a href="{% url 'table details' table.id %}" class="btn btn-danger">Details</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        {% else %}
+            <h2 class="text-center" style="font-style: italic"><b>You have not added any tables currently</b></h2>
+        {% endif %}
+    </div>
+    <hr>
+    <div style="padding-top: 10px">
+        {% if products %}
+            <h2 class="text-center" style="font-style: italic"><b>These are the products you added</b></h2>
+            {% for product in products %}
+                <h5 style="font-style: italic"><b>{{ product.name }} - Price: {{ product.price }} lv.</b></h5>
+                <p style="text-align: right;font-style: italic">Type: {{ product.type }}, {{ product.description }}
+                    <a href="{% url 'edit product' product.id %}" class="btn btn-danger" style="width: 7%">Edit</a>
+                    <a href="{% url 'delete product' product.id %}" class="btn btn-danger" style="width: 9%">Delete</a>
+                </p>
+            {% endfor %}
+        {% else %}
+            <h2 class="text-center" style="font-style: italic"><b>You have not added any products to the menu</b></h2>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+      <div class="container" style="width: 60%">
+         <div class="jumbotron parent">
+            <center><img style="width: 65%"  src="https://s.tmimgcdn.com/scr/800x500/212900/spoon-and-fork-restaurant-logo_212966-original.png" alt=""></center>
+            <div class="absolute">
+               <center><h1 class="display-4" style="font-size: 45px">Welcome to Spoon&Fork Restaurant</h1></center>
+               <hr class="my-4">
+               <div class="inner cover">
+                  <h1 class="cover-heading"></h1>
+                  <div class="row">
+                     <div class="col-lg-6">
+                        <center><p class="lead">Already have an account? <br><center><a href="{% url 'log in user' %}" class="btn btn-primary" >Sign In</a></center></p></center>
+                     </div>
+                     <div class="col-lg-6">
+                        <center><p class="lead"> Do not have an account? <br>
+                           <center><a href="{% url 'register user' %}" class="btn btn-primary">Sign Up</a></center>
+                        </p></center>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+{% endblock %}

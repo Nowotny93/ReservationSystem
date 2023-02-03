@@ -1,0 +1,72 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <div>
+        <h1 class="text-center" style="font-style: italic"><b>-- Table details --</b></h1>
+    </div>
+    <div class='text-center'>
+        <form method="post" action="{% url 'make order' table.id %}">
+            {% csrf_token %}
+            {% for item in make_order_form %}
+                {{ item }}
+            {% endfor %}
+            <button class="btn btn-primary mt-2" type="submit" style="margin-bottom: 12px">Make Order</button>
+        </form>
+    </div>
+    <hr>
+    <div style="display: flex;top: 30px">
+        <div class="col-lg-4" style="; margin-left: 120px; margin-right: 20px">
+            <div class="card" style="width: 100%; margin-top: 7px" >
+                <div class="card-body">
+
+                        <h4 class="card-title" style="text-align: center; font-style: italic"><b>Name: {{ table.name }}</b></h4>
+                        <h5 class="card-title" style="text-align: center; font-style: italic">Type: {{ table.type }}, {{ table.description }}</h5>
+
+                        {% if table.type == 'Big' %}
+                            <img src="https://5.imimg.com/data5/OJ/OG/ND/SELLER-53513676/dining-room-table-500x500.jpg" style="text-align: center;width: 90%;display: block;margin-left: auto;margin-right: auto">
+                        {% elif table.type == 'Medium' %}
+                            <img src="https://www.decorhubng.com/wp-content/uploads/2018/05/Espresso-Leather-Brown-4-Person-Table-and-Chairs-Brown-Dining-Dinette.jpg" style="text-align: center;width: 90%;display: block;margin-left: auto;margin-right: auto">
+                        {% elif table.type == 'Small' %}
+                            <img src="https://i5.walmartimages.com/asr/cd57a361-89eb-4455-a40a-3788fb3effd8.bea507cfe007bed07a856f0b603d7d7c.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF" style="text-align: center;width: 90%;display: block;margin-left: auto;margin-right: auto">
+                        {% endif %}
+                </div>
+            </div>
+            <div >
+                {% if orders %}
+                    <h5 style="text-align: center;background: magenta">RESERVED</h5>
+                {% else %}
+                    <h5 style="text-align: center; background: chocolate">FREE</h5>
+                {% endif %}
+            </div>
+            <div style="text-align: center">
+                <a href="{% url 'delete all orders' table.id %}" class="btn btn-danger" >Clear the table</a>
+            </div>
+        </div>
+        <div style="border-radius: 9px;background-image: url('https://cdn.picpng.com/sticky_notes/sticky-notes-background-32122.png');background-size: 100% 100%;width: 40%; margin-left:50px" >
+
+            <div style="margin: 40px;width: 70%;position: relative;top: 9px">
+                <h4 style=";font-style: italic">Table Orders:</h4>
+                <div>
+
+                    <p>---------------------</p>
+                    {% if orders %}
+                        {% for order in orders %}
+                            <h5 style="font-style: italic">{{ order.product }} </h5>
+                            <a href="{% url 'delete order' order.id %}" class="btn btn-danger" style="width: 37%;font-style: italic">Delete order</a>
+                        {% endfor %}
+                    {% else %}
+                        <h5 style="font-style: italic">Still no orders for this table!</h5>
+                    {% endif %}
+
+                </div>
+                <div style="position: relative;top: 10px">
+                    <p>---------------------</p>
+                    <h4 style="position: relative;bottom: 10px;">BILL: {{ profit }} lv.</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}

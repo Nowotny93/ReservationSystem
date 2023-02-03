@@ -1,0 +1,70 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+    <h1 class='text-center' style="font-style: italic;padding-top: 5px"><b>-- MENU --</b></h1>
+    <form method="post" class="furniture-form" action="{% url 'add product' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <center><button class="btn btn-primary mt-2" type="submit" style="margin: 10px;">Add Product</button></center>
+    </form>
+    <hr>
+    <div style="background-image: url('https://i.pinimg.com/originals/3f/48/34/3f483410b8f2f1eb486efa7142deefc3.jpg');background-size: 100% 100%;padding: 100px;border-radius: 1%;font-style: italic;color: white">
+        <div class="row" style="display: block">
+                <center><h4 style="padding-top: 20px;">-- BEVERAGES --</h4></center>
+                <center><img src="https://img2.thejournal.ie/question/30739/double/?width=610&version=108677" style="width: 30%;border-radius: 20%"></center>
+                    <div>
+                        {% for product in menus %}
+                            {% if product.type == 'Beverage' %}
+                                <h5><b>{{ product.name }} - Price: {{ product.price }} lv.</b></h5>
+                                <p style="text-align: right">Type: {{ product.type }}, {{ product.description }}
+                                    <a href="{% url 'edit product' product.id %}" class="btn btn-danger" style="width: 7%">Edit</a>
+                                    <a href="{% url 'delete product' product.id %}" class="btn btn-danger" style="width: 9%">Delete</a>
+                                </p>
+                                <hr style="background-color:gray">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                <center><h4>-- STARTERS --</h4></center>
+                <center><img src="https://cdn.winsightmedia.com/platform/files/public/2018-02/background/600x450/appetizers_1518036321.jpg" style="width: 30%;border-radius: 20%"></center>
+                    <div>
+                        {% for product in menus %}
+                                {% if product.type == 'Starter' %}
+                                    <h5><b>{{ product.name }} - Price: {{ product.price }} lv.</b></h5>
+                                    <p style="text-align: right">Type: {{ product.type }}, {{ product.description }}
+                                        <a href="{% url 'edit product' product.id %}" class="btn btn-danger" style="width: 7%">Edit</a>
+                                        <a href="{% url 'delete product' product.id %}" class="btn btn-danger" style="width: 9%">Delete</a>
+                                    </p>
+                                    <hr style="background-color:gray">
+                                {% endif %}
+                        {% endfor %}
+                    </div>
+                <center><h4>-- MAIN DISHES --</h4></center>
+                <center><img src="https://www.streetsmartkitchen.com/wp-content/uploads/2014/03/15-Amazing-Main-Dishes-copy-2.jpg" style="width: 30%;border-radius: 20%;height: 160px"></center>
+                    <div>
+                        {% for product in menus %}
+                                {% if product.type == 'Main Dish' %}
+                                    <h5><b>{{ product.name }} - Price: {{ product.price }} lv.</b></h5>
+                                    <p style="text-align: right">Type: {{ product.type }}, {{ product.description }}
+                                        <a href="{% url 'edit product' product.id %}" class="btn btn-danger" style="width: 7%">Edit</a>
+                                        <a href="{% url 'delete product' product.id %}" class="btn btn-danger" style="width: 9%">Delete</a>
+                                    </p>
+                                    <hr style="background-color:gray">
+                                {% endif %}
+                        {% endfor %}
+                    </div>
+                <center><h4>-- DESSERTS --</h4></center>
+                <center><img src="https://insanelygoodrecipes.com/wp-content/uploads/2020/10/Homemade-Chocolate-Pasta-480x270.png" style="width: 30%;border-radius: 20%"></center>
+                    <div>
+                        {% for product in menus %}
+                                {% if product.type == 'Dessert' %}
+                                    <h5><b>{{ product.name }} - Price: {{ product.price }} lv.</b></h5>
+                                    <p style="text-align: right">Type: {{ product.type }}, {{ product.description }}
+                                        <a href="{% url 'edit product' product.id %}" class="btn btn-danger" style="width: 7%">Edit</a>
+                                        <a href="{% url 'delete product' product.id %}" class="btn btn-danger" style="width: 9%">Delete</a>
+                                    </p>
+                                    <hr style="background-color:gray">
+                                {% endif %}
+                        {% endfor %}
+                    </div>
+        </div>
+    </div>
+{% endblock %}
